@@ -21,7 +21,7 @@ class OutageModel(BaseOutageModel):
 
 class ProviderRegionOutageModel(BaseOutageModel):
     provider_region_id: str
-    deployment_ids: Set[str]
+    deployment_ids: List[str]
 
 
 # we use this for the email header, please send a test email if you change this. verify it looks good on email

@@ -842,7 +842,7 @@ class SlackAlerting(CustomBatchLogger):
                 minor_alert_sent=False,
                 major_alert_sent=False,
                 last_updated_at=time.time(),
-                deployment_ids=_deployment_set,
+                deployment_ids=list(_deployment_set),
             )
 
             ## add to cache ##
@@ -857,9 +857,9 @@ class SlackAlerting(CustomBatchLogger):
             outage_value["alerts"].append(exception.status_code)  # type: ignore
         else:  # prevent memory leaks
             pass
-        _deployment_set = outage_value["deployment_ids"]
+        _deployment_set = set(outage_value["deployment_ids"])
         _deployment_set.add(deployment_id)
-        outage_value["deployment_ids"] = _deployment_set
+        outage_value["deployment_ids"] = list(_deployment_set)
         outage_value["last_updated_at"] = time.time()
 
         ## MINOR OUTAGE ALERT SENT ##
